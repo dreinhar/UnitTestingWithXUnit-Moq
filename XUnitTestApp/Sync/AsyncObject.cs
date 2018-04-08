@@ -26,6 +26,7 @@ namespace XUnitTestApp.Sync
         private int PreWaitId = 0;
         private int WaitId = 0;
         private int PostWaitId = 0;
+        private int CallId = 0;
 
         private void WriteVoidAsyncNoArgsMessageOne()
         {
@@ -47,6 +48,7 @@ namespace XUnitTestApp.Sync
         /// </summary>
         public async void VoidAsyncNoArgs()
         {
+            CallId++;
             WriteVoidAsyncNoArgsMessageOne();
             await Task.Run(() => WaitForWriteVoidAsyncNoArgsMessage());
             WriteVoidAsyncNoArgsMessageTwo();
