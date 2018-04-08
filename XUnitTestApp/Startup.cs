@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
+using XUnitTestApp.Sync;
 
 namespace XUnitTestApp
 {
@@ -25,9 +26,15 @@ namespace XUnitTestApp
                 app.UseDeveloperExceptionPage();
             }
 
+            var testObject = new AsyncObject();
+            testObject.VoidAsyncNoArgs();
+            testObject.VoidAsyncNoArgs();
+
             app.Run(async (context) =>
             {
-                await context.Response.WriteAsync("Hello World!");
+                string st = null;
+                foreach(string s in testObject.StringsQueue) { st += $"{s}<br>"; }
+                await context.Response.WriteAsync(st);
             });
         }
     }
