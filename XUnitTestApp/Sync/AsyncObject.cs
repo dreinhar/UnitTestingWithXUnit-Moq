@@ -30,17 +30,17 @@ namespace XUnitTestApp.Sync
 
         private void WriteVoidAsyncNoArgsMessageOne()
         {
-            strings.Add($"{Id++}) Pre Wait VoidAsyncNoArgs run: id {PreWaitId++}");
+            strings.Add($"{Id++}) Pre Wait VoidAsyncNoArgs run: CallId: {CallId} PrintId: {PreWaitId++}");
         }
 
         private void WriteVoidAsyncNoArgsMessageTwo()
         {
-            strings.Add($"{Id++}) After wait VoidAsyncNoArgs run: id {PostWaitId++}");
+            strings.Add($"{Id++}) After wait VoidAsyncNoArgs run: CallId: {CallId} PrintId: {PostWaitId++}");
         }
 
         private void WaitForWriteVoidAsyncNoArgsMessage()
         {
-            strings.Add($"{Id++}) Waited for VoidAsyncNoArgs run: id {WaitId++}");
+            strings.Add($"{Id++}) Waited for VoidAsyncNoArgs run: CallId: {CallId} PrintId: {WaitId++}");
         }
 
         /// <summary>
