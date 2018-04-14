@@ -54,4 +54,13 @@ namespace XUnitTestApp.Sync
             WriteVoidAsyncNoArgsMessageTwo();
         }
     }
+
+    public sealed class SystemUnderTest
+    {
+        public static async Task SimpleAsync()
+        {
+            await Task.Delay(10);
+            throw new Exception("Should Fail.");
+        }
+    }
 }

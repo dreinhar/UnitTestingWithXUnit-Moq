@@ -4,6 +4,7 @@ using System.Text;
 using Xunit;
 using XUnitTestApp.Sync;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace XUnitTestSuite.Sync
 {
@@ -25,6 +26,25 @@ namespace XUnitTestSuite.Sync
             _dut.VoidAsyncNoArgs();
 
             Assert.NotNull(_dut.StringsList.FirstOrDefault(s => s.Contains(VoidAsyncNoArgs)));
+        }
+
+        [Fact]
+        public void InCorrectlyPassingTest()
+        {
+            SystemUnderTest.SimpleAsync();
+        }
+
+        [Fact(Skip = "This test is designed to fail. It is a good example of why an async method should always return a value")]
+        public async Task CorrectlyFailingTest()
+        {
+            await SystemUnderTest.SimpleAsync();
+        }
+
+        [Fact]
+        public void ExampleThrowsExceptionTest()
+        {
+            Assert.ThrowsAsync<Exception>(async ()
+              => { await SystemUnderTest.SimpleAsync(); });
         }
     }
 }
