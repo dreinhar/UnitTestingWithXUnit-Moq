@@ -53,6 +53,25 @@ namespace XUnitTestApp.Sync
             await Task.Run(() => WaitForWriteVoidAsyncNoArgsMessage());
             WriteVoidAsyncNoArgsMessageTwo();
         }
+
+        /// <summary>
+        /// A simple async operation that passes without exception.
+        /// </summary>
+        /// <returns>a task</returns>
+        public async Task SimpleAsync()
+        {
+            await Task.Delay(10);
+        }
+
+        /// <summary>
+        /// A simple async operationn that throws an exception.
+        /// </summary>
+        /// <returns>a task</returns>
+        public async Task FailAsync()
+        {
+            await Task.Delay(10);
+            throw new Exception("Should Fail.");
+        }
     }
 
     public sealed class SystemUnderTest

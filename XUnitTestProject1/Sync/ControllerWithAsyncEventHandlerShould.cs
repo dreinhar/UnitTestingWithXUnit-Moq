@@ -13,10 +13,10 @@ namespace XUnitTestSuite.Sync
     public class ControllerWithAsyncEventHandlerShould
     {
         /// <summary>
-        /// Verify that a controller's async event handler is called by a 
-        /// view's event 
+        /// This test demonstrates that an async event can't be 
+        /// tested effectively
         /// </summary>
-        [Fact]
+        [Fact(Skip = "This test is fails because the assert is performed before the thread sets the EventCalled property")]
         public void CallAsyncEventHandler()
         {
             var view = new ViewObjectWithEventHandler();
@@ -24,23 +24,7 @@ namespace XUnitTestSuite.Sync
 
             view.RunEvent();
 
-            Assert.Equal(0, controller.EventCalled);
-        }
-
-        /// <summary>
-        /// Verify that a controller's async event handler is called by a 
-        /// view's event twice
-        /// </summary>
-        [Fact]
-        public void CallAsyncEventHandlerTwice()
-        {
-            var view = new ViewObjectWithEventHandler();
-            var controller = new ControllerWithAsyncEventHandler(view);
-
-            view.RunEvent();
-            view.RunEvent();
-
-            Assert.Equal(2, controller.EventCalled);
+            Assert.Equal(1, controller.EventCalled);
         }
     }
 }
