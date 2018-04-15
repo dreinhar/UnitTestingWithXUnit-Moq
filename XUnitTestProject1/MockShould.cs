@@ -13,6 +13,11 @@ namespace MockTestSuite
     public class MockShould
     {
         /// <summary>
+        /// Custom event argument object for testing
+        /// </summary>
+        public class TestEventArgs : EventArgs { }
+
+        /// <summary>
         /// Interfaces mocked in all tests
         /// </summary>
         public interface TestMock
@@ -32,6 +37,11 @@ namespace MockTestSuite
             /// </summary>
             /// <returns>an integer</returns>
             int TestReturn();
+
+            /// <summary>
+            /// Event mocked during testing
+            /// </summary>
+            event EventHandler<TestEventArgs> OnEvent;
         }
 
         /// <summary>
@@ -152,6 +162,20 @@ namespace MockTestSuite
             mock.Object.Submit(false);
 
             mock.Verify(testMock => testMock.Submit(false), Times.Exactly(1));
+        }
+
+        private bool eventRaised = false;
+        private void EventHandlerMethod(object sender, TestEventArgs e) { eventRaised = true; }
+
+        [Fact]
+        public void MockEventHandler()
+        {
+            var mock = new Mock<TestMock>();
+
+            mock.Object.OnEvent += EventHandlerMethod;
+            mock.Raise(x => x.OnEvent += null, new TestEventArgs());
+
+            Assert.True(eventRaised);
         }
     }
 }
