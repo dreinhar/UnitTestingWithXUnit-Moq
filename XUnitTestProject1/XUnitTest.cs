@@ -5,6 +5,7 @@ using System.Diagnostics;
 using Xunit;
 using Xunit.Abstractions;
 using Moq;
+using System.Linq;
 
 namespace XUnitTestSuite
 {
@@ -188,6 +189,24 @@ namespace XUnitTestSuite
         private void NotImplementedException()
         {
             throw new NotImplementedException();
+        }
+
+        private event EventHandler<EventArgs> OnEvent;
+        private void EventHandlerMethod(object sender, EventArgs e) { }
+
+        [Fact]
+        public void AssertEventHandlerIsNotSet()
+        {
+            Assert.Null(OnEvent);
+        }
+
+        [Fact]
+        public void AssertEventHandlerIsSet()
+        {
+            OnEvent += EventHandlerMethod;
+
+            var eventHandler = OnEvent.GetInvocationList()[0];
+            Assert.Equal("EventHandlerMethod", eventHandler.Method.Name);
         }
 
         // https://xunit.github.io/#documentation
