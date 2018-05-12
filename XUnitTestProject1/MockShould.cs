@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Xunit;
+using System.Linq;
 
 namespace MockTestSuite
 {
@@ -167,6 +168,9 @@ namespace MockTestSuite
         private bool eventRaised = false;
         private void EventHandlerMethod(object sender, TestEventArgs e) { eventRaised = true; }
 
+        /// <summary>
+        /// Verify raising an event
+        /// </summary>
         [Fact]
         public void MockEventHandler()
         {
@@ -176,6 +180,19 @@ namespace MockTestSuite
             mock.Raise(x => x.OnEvent += null, new TestEventArgs());
 
             Assert.True(eventRaised);
+        }
+
+        /// <summary>
+        /// Verify that a property has been set
+        /// </summary>
+        [Fact]
+        public void VerifyPropertySet()
+        {
+            var mock = new Mock<TestMock>();
+
+            mock.Object.TestProperty = 5;
+
+            mock.VerifySet(m => m.TestProperty = 5, Times.Once);
         }
     }
 }
